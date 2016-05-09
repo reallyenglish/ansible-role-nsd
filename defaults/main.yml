@@ -1,0 +1,21 @@
+nsd_user: nsd
+nsd_group: nsd
+nsd_db_dir: "{{ __nsd_db_dir }}"
+nsd_run_dir: /var/run/nsd
+nsd_service: nsd
+nsd_conf_dir: "{{ __nsd_conf_dir }}"
+nsd_conf: "{{ nsd_conf_dir }}/nsd.conf"
+nsd_flags: ""
+
+nsd_chroot_enable: false
+nsd_chroot_dir: "{{ nsd_conf_dir }}"
+nsd_statistics_enable: true
+nsd_ip_addresses:
+nsd_listen_on_localhost: true
+
+nsd_conf_do_ip4: "yes"
+nsd_conf_do_ip6: "no"
+nsd_conf_verbosity: 0
+nsd_conf_zonesdir: "{{ nsd_conf_dir }}"
+nsd_conf_statistics: 3600
+nsd_conf_round_robin: "no"

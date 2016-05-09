@@ -1,0 +1,6 @@
+---
+
+- name: Restart nsd_config
+  service:
+    name: nsd
+    state: restarted

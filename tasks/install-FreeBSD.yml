@@ -1,0 +1,6 @@
+---
+
+- name: Install nsd
+  pkgng:
+    name: nsd
+    state: present
