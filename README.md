@@ -23,7 +23,7 @@ Role Variables
 | nsd\_flags | (not used yet) | "" |
 | nsd\_chroot\_enable | enable chroot | false |
 | nsd\_chroot\_dir | dir to chroot | {{ nsd\_conf\_dir }} |
-| nsd\_statistics\_enable | enable statistics | true |
+| nsd\_statistics\_enable | enable statistics | false |
 | nsd\_ip\_addresses | a list of ip address to listen on | all available ip addresses |
 | nsd\_listen\_on\_localhost | listen on localhost | true |
 | nsd\_conf\_do\_ip4 | enable ip4 | yes |
@@ -44,7 +44,7 @@ Role Variables
 | nsd\_conf\_server\_cert | content of nsd\_server.pem | "" |
 | nsd\_conf\_control\_key | content of nsd\_control.key | "" |
 | nsd\_conf\_control\_cert | content of nsd\_control.pub | "" |
-
+| nsd\_zones | dict of zone date (see below) | Null |
 
 ### FreeBSD
 
@@ -61,6 +61,68 @@ None
 Example Playbook
 ----------------
 
+### Master DNS
+
+* allow secure AXFR from 192.168.133.101
+* allow insecure AXFR from localhost
+
+  - hosts: localhost
+    roles:
+      - ansible-role-nsd
+    vars:
+      nsd_keys:
+        my_tsig_key:
+          secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=
+          algorithm: hmac-sha256
+      nsd_zones:
+        example.com:
+          zonefile: example.com.zone
+          zone: |
+            example.com. 86400 IN SOA ns1.example.com. hostmaster.example.com. 2013020201 10800 3600 604800 3600
+            example.com. 86400 IN NS ns1.example.com.
+            example.com. 120 IN A 192.168.0.1
+            ns1.example.com. 120 IN A 192.168.0.1
+            mail.example.com. 120 IN A 192.168.0.1
+            example.com. 120 IN MX 25 mail.example.com.
+          provide_xfr:
+            - 192.168.133.101 my_tsig_key
+            - 127.0.0.1 NOKEY
+
+### Slave
+
+* enable remote control
+* setup keys for remote control automatically
+* request AXFR with TSIG key
+
+  - hosts: localhost
+    roles:
+      - ansible-role-nsd
+    vars:
+      nsd_keys:
+        my_tsig_key:
+          secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=
+          algorithm: hmac-sha256
+      nsd_conf_control_enable: "yes"
+      nsd_remote_enable: true
+      nsd_remote_setup: true
+      nsd_zones:
+        example.com:
+          request_xfr:
+            - 192.168.133.100 my_tsig_key
+
+kitchen test does not work
+--------------------------
+
+As test-kitchen does not support testing multiple VMs in one batch, you must
+test by running the following commands:
+
+    > bundle exec kitchen destroy
+    > bundle exec kitchen converge
+    > bundle exec kitchen verify
+    > bundle exec kitchen destroy
+
+"Ability to test recipes that require multiple VMs connected to a chef server"
+https://github.com/test-kitchen/test-kitchen/issues/184
 
 License
 -------
