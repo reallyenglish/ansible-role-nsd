@@ -21,6 +21,9 @@
     dest: "{{ nsd_conf }}"
   notify: Restart nsd
 
+- include: configure-remote.yml
+  when: nsd_remote_enable
+
 - name: Start nsd
   service:
     name: "{{ nsd_service }}"

@@ -1,0 +1,7 @@
+- hosts: all
+  roles:
+    - ansible-role-nsd
+  vars:
+    nsd_conf_control_enable: "yes"
+    nsd_remote_enable: true
+    nsd_remote_setup: true

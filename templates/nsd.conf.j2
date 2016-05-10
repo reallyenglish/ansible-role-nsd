@@ -120,32 +120,22 @@ server:
     # rrl-whitelist-ratelimit: 2000
     # RRLend
 
-# Remote control config section. 
+{% if nsd_remote_enable -%}
 remote-control:
     # Enable remote control with nsd-control(8) here.
     # set up the keys and certificates with nsd-control-setup.
-    # control-enable: no
+    control-enable: yes
 
     # what interfaces are listened to for control, default is on localhost.
-    # control-interface: 127.0.0.1
-    # control-interface: ::1
-
-    # port number for remote control operations (uses TLS over TCP).
-    # control-port: 8952
-
-    # nsd server key file for remote control.
-    # server-key-file: "/usr/local/etc/nsd/nsd_server.key"
-
-    # nsd server certificate file for remote control.
-    # server-cert-file: "/usr/local/etc/nsd/nsd_server.pem"
-
-    # nsd-control key file.
-    # control-key-file: "/usr/local/etc/nsd/nsd_control.key"
-
-    # nsd-control certificate file.
-    # control-cert-file: "/usr/local/etc/nsd/nsd_control.pem"
-
-
+{% for i in nsd_conf_control_interface -%}
+    control-interface: {{ i }}
+{% endfor -%}
+    control-port: {{ nsd_conf_control_port }}
+    server-key-file: "{{ nsd_conf_server_key_file }}"
+    server-cert-file: "{{ nsd_conf_server_cert_file }}"
+    control-key-file: "{{ nsd_conf_control_key_file }}"
+    control-cert-file: "{{ nsd_conf_control_cert_file }}"
+{% endif -%}
 # Secret keys for TSIGs that secure zone transfers.
 # You could include: "secret.keys" and put the 'key:' statements in there,
 # and give that file special access control permissions.
