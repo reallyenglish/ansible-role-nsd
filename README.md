@@ -63,9 +63,6 @@ Example Playbook
 
 ### Master DNS
 
-* allow secure AXFR from 192.168.133.101
-* allow insecure AXFR from localhost
-
       - hosts: localhost
         roles:
           - ansible-role-nsd
@@ -88,11 +85,10 @@ Example Playbook
                 - 192.168.133.101 my_tsig_key
                 - 127.0.0.1 NOKEY
 
-### Slave
+* allow secure AXFR from 192.168.133.101
+* allow insecure AXFR from localhost
 
-* enable remote control
-* setup keys for remote control automatically
-* request AXFR with TSIG key
+### Slave
 
       - hosts: localhost
         roles:
@@ -109,6 +105,10 @@ Example Playbook
             example.com:
               request_xfr:
                 - 192.168.133.100 my_tsig_key
+
+* enable remote control
+* setup keys for remote control automatically
+* request AXFR with TSIG key
 
 kitchen test does not work
 --------------------------
