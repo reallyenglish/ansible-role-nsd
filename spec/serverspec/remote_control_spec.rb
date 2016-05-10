@@ -74,7 +74,7 @@ case os[:family]
 when 'freebsd'
 else
   describe port(8952) do
-    it { should_not be_listening.on('10.0.2.15').with('tcp') }
-    it { should be_listening.on('127.0.0.1').with('tcp') }
+    it { should_not be_listening.on('192.168.133.i01').with('tcp') }
+    it { should be_listening.on('192.168.133.i01').with('tcp') }
   end
 end

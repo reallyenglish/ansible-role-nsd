@@ -31,6 +31,9 @@ suites:
     provisioner:
       name: ansible_playbook
       playbook: test/integration/default.yml
+    driver:
+      network:
+      -  ["private_network", {ip: "192.168.133.i00/24"}]
     verifier:
       name: shell
       command: rspec -c -f d -I spec/serverspec spec/serverspec/default_spec.rb
@@ -39,6 +42,9 @@ suites:
     provisioner:
       name: ansible_playbook
       playbook: test/integration/remote_control.yml
+    driver:
+      network:
+      -  ["private_network", {ip: "192.168.133.101/24"}]
     verifier:
       name: shell
       command: rspec -c -f d -I spec/serverspec spec/serverspec/remote_control_spec.rb
