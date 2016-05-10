@@ -15,11 +15,29 @@
     state: directory
   notify: Restart nsd
 
+- name: create key for TSIG
+  template:
+    src: key.j2
+    dest: "{{ nsd_conf_dir }}/{{ item.key }}.key"
+    mode: 0600
+    owner: "{{ nsd_user }}"
+    group: "{{ nsd_group }}"
+  with_dict: "{{ nsd_keys }}"
+  notify: Restart nsd
+
+- name: Create zone files
+  template:
+    src: zone.j2
+    dest: "{{ nsd_conf_dir }}/{{ item.value.zonefile }}"
+    mode: 0644
+  with_dict: "{{ nsd_zones }}"
+  when: "{{ 'zonefile' in item.value }}"
+  
 - name: Create nsd.conf
   template:
     src: nsd.conf.j2
     dest: "{{ nsd_conf }}"
-  notify: Restart nsd
+  notify: Reload nsd
 
 - include: configure-remote.yml
   when: nsd_remote_enable

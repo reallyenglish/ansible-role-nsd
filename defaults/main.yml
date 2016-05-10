@@ -9,7 +9,7 @@ nsd_flags: ""
 
 nsd_chroot_enable: false
 nsd_chroot_dir: "{{ nsd_conf_dir }}"
-nsd_statistics_enable: true
+nsd_statistics_enable: false
 nsd_ip_addresses:
 nsd_listen_on_localhost: true
 
@@ -34,3 +34,6 @@ nsd_conf_server_key:   ""
 nsd_conf_server_cert:  ""
 nsd_conf_control_key:  ""
 nsd_conf_control_cert: ""
+
+# master and slave
+nsd_zones:

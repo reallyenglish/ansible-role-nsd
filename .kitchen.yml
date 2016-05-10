@@ -33,7 +33,7 @@ suites:
       playbook: test/integration/default.yml
     driver:
       network:
-      -  ["private_network", {ip: "192.168.133.i00/24"}]
+      -  ["private_network", {ip: "192.168.133.100/24"}]
     verifier:
       name: shell
       command: rspec -c -f d -I spec/serverspec spec/serverspec/default_spec.rb

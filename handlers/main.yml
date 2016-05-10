@@ -1,6 +1,11 @@
 ---
 
-- name: Restart nsd_config
+- name: Restart nsd
   service:
     name: nsd
     state: restarted
+
+- name: Reload nsd
+  service:
+    name: nsd
+    state: reloaded
