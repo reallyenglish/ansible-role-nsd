@@ -19,3 +19,18 @@ nsd_conf_verbosity: 0
 nsd_conf_zonesdir: "{{ nsd_conf_dir }}"
 nsd_conf_statistics: 3600
 nsd_conf_round_robin: "no"
+
+nsd_remote_enable: false
+nsd_remote_setup: false
+nsd_conf_control_interface: [ 127.0.0.1 ]
+nsd_conf_control_port: 8952
+
+nsd_conf_server_key_file:   "{{ nsd_conf_dir }}/nsd_server.key"
+nsd_conf_server_cert_file:  "{{ nsd_conf_dir }}/nsd_server.pem"
+nsd_conf_control_key_file:  "{{ nsd_conf_dir }}/nsd_control.key"
+nsd_conf_control_cert_file: "{{ nsd_conf_dir }}/nsd_control.pem"
+
+nsd_conf_server_key:   ""
+nsd_conf_server_cert:  ""
+nsd_conf_control_key:  ""
+nsd_conf_control_cert: ""
