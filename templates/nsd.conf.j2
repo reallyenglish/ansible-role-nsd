@@ -12,6 +12,7 @@ server:
     do-ip6: {{ nsd_conf_do_ip6 }}
     verbosity: {{ nsd_conf_verbosity }}
     username: {{ nsd_user }}
+    round-robin: {{ nsd_conf_round_robin }}
 
 {% if nsd_chroot_enable %}
     chroot: "{{ nsd_conf_dir }}"
