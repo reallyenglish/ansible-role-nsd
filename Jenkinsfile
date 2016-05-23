@@ -1,5 +1,5 @@
 node ('virtualbox') {
-  def directory = "ansible-role-rsyslog"
+  def directory = "ansible-role-nsd"
   stage 'Clean up'
   deleteDir()
   stage 'Checkout'
