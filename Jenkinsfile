@@ -13,10 +13,13 @@ node ('virtualbox') {
     sh 'if vagrant box list | grep trombik/ansible-freebsd-10.3-amd64 >/dev/null; then echo "installed"; else vagrant box add trombik/ansible-freebsd-10.3-amd64; fi'
 
     stage 'bundle exec kitchen test'
-    sh 'bundle exec kitchen destroy'
-    sh 'bundle exec kitchen converge'
-    sh 'bundle exec kitchen verify'
-    sh 'bundle exec kitchen destroy'
+    try {
+      sh 'bundle exec kitchen destroy'
+      sh 'bundle exec kitchen converge'
+      sh 'bundle exec kitchen verify'
+    } finally {
+      sh 'bundle exec kitchen destroy'
+    }
 
     stage 'Notify'
     step([$class: 'GitHubCommitNotifier', resultOnFailure: 'FAILURE'])
