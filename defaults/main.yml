@@ -1,7 +1,7 @@
-nsd_user: nsd
-nsd_group: nsd
+nsd_user: "{{ __nsd_user }}"
+nsd_group: "{{ __nsd_group }}"
 nsd_db_dir: "{{ __nsd_db_dir }}"
-nsd_run_dir: /var/run/nsd
+nsd_run_dir: "{{ __nsd_run_dir }}"
 nsd_service: nsd
 nsd_conf_dir: "{{ __nsd_conf_dir }}"
 nsd_conf: "{{ nsd_conf_dir }}/nsd.conf"
@@ -19,6 +19,7 @@ nsd_conf_verbosity: 0
 nsd_conf_zonesdir: "{{ nsd_conf_dir }}"
 nsd_conf_statistics: 3600
 nsd_conf_round_robin: "no"
+nsd_conf_server_count: 1
 
 nsd_remote_enable: false
 nsd_remote_setup: false

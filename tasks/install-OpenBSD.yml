@@ -1,0 +1,6 @@
+---
+
+- name: Install drill
+  openbsd_pkg:
+    name: drill
+    state: present

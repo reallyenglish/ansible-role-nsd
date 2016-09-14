@@ -15,8 +15,11 @@ node ('virtualbox') {
     stage 'bundle exec kitchen test'
     try {
       sh 'bundle exec kitchen destroy'
-      sh 'bundle exec kitchen converge'
-      sh 'bundle exec kitchen verify'
+      sh "bundle exec kitchen converge '(remote-control-freebsd|default-freebsd)'"
+      sh "bundle exec kitchen verify '(remote-control-freebsd|default-freebsd)'"
+      sh 'bundle exec kitchen destroy'
+      sh "bundle exec kitchen converge '(remote-control-openbsd|default-openbsd)'"
+      sh "bundle exec kitchen verify '(remote-control-openbsd|default-openbsd)'"
     } finally {
       sh 'bundle exec kitchen destroy'
     }

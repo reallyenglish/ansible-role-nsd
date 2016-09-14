@@ -2,6 +2,9 @@
 driver:
   name: vagrant
 
+transport:
+  name: rsync
+
 provisioner:
   hosts: test-kitchen
   name: ansible_playbook
@@ -14,8 +17,6 @@ provisioner:
   additional_copy_path:
     - extra_modules
     - filter_plugins
-  extra_vars:
-    ansible_python_interpreter: '/usr/local/bin/python'
 
 platforms:
   - name: freebsd-10.3-amd64
@@ -25,8 +26,20 @@ platforms:
     driver_config:
       ssh:
         shell: '/bin/sh'
-    transport:
-      name: sftp
+    provisioner:
+      extra_vars:
+        ansible_python_interpreter: '/usr/local/bin/python'
+
+  - name: openbsd-6.0-amd64
+    driver:
+      box: trombik/ansible-openbsd-6.0-amd64
+      box_check_update: false
+    driver_config:
+      ssh:
+        shell: '/bin/sh'
+    provisioner:
+      extra_vars:
+        ansible_python_interpreter: '/usr/local/bin/python'
 
 suites:
   - name: default
