@@ -49,6 +49,9 @@ describe file(config) do
   its(:content) { should match Regexp.escape("xfrdfile: \"#{db_dir}/xfrd.state\"") }
   its(:content) { should match /verbosity: 0/ }
   its(:content) { should match /round-robin: no/ }
+  if os[:family] == 'freebsd'
+    its(:content) { should_not match /control-enable: yes/ }
+  end
 end
 
 describe file(db_dir) do

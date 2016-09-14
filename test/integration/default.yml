@@ -2,8 +2,8 @@
   roles:
     - ansible-role-nsd
   vars:
-    nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}false{% else %}true{% endif %}"
-    nsd_remote_setup: "{% if ansible_os_family == 'FreeBSD' %}false{% else %}true{% endif %}"
+    nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
+    nsd_remote_setup: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
     nsd_keys:
       my_tsig_key:
         secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=
