@@ -1,6 +1,6 @@
 server:
     # Number of NSD servers to fork.  Put the number of CPUs to use here.
-    server-count: {{ ansible_processor_cores | default(1) }}
+    server-count: {{ nsd_conf_server_count }}
 {% set ip_addresses = nsd_ip_addresses if nsd_ip_addresses  else ansible_all_ipv4_addresses %}
 {% for ip in ip_addresses %}
     ip-address: {{ ip }}
