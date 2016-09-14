@@ -13,6 +13,13 @@ db_dir  = '/var/lib/nsd'
 run_dir = '/var/run/nsd'
 
 case os[:family]
+when 'openbsd'
+  user = '_nsd'
+  group = user
+  config = '/var/nsd/etc/nsd.conf'
+  config_dir = '/var/nsd/etc'
+  db_dir = '/var/nsd/db'
+  run_dir = '/var/nsd/run'
 when 'freebsd'
   config = '/usr/local/etc/nsd/nsd.conf'
   config_dir = '/usr/local/etc/nsd'
@@ -21,8 +28,10 @@ end
 
 key_file = "#{ config_dir }/my_tsig_key.key"
 
-describe package(package) do
-  it { should be_installed }
+if os[:family] != 'openbsd'
+  describe package(package) do
+    it { should be_installed }
+  end
 end
 
 describe file(config) do
@@ -76,7 +85,10 @@ case os[:family]
 when 'freebsd'
 else
   describe port(8952) do
-    it { should_not be_listening.on('192.168.133.101').with('tcp') }
+    it {
+      pending('serverspec does not properly handle netstat on OpenBSD') if os[:family] == 'openbsd'
+      should_not be_listening.on('192.168.133.101').with('tcp')
+    }
     it { should be_listening.on('192.168.133.101').with('tcp') }
   end
 end

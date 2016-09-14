@@ -13,6 +13,13 @@ db_dir  = '/var/lib/nsd'
 run_dir = '/var/run/nsd'
 
 case os[:family]
+when 'openbsd'
+  user = '_nsd'
+  group = user
+  config = '/var/nsd/etc/nsd.conf'
+  config_dir = '/var/nsd/etc'
+  db_dir = '/var/nsd/db'
+  run_dir = '/var/nsd/run'
 when 'freebsd'
   config = '/usr/local/etc/nsd/nsd.conf'
   config_dir = '/usr/local/etc/nsd'
@@ -21,9 +28,11 @@ end
 
 key_file = "#{ config_dir }/my_tsig_key.key"
 
-describe package(package) do
-  it { should be_installed }
-end 
+if os[:family] != 'openbsd'
+  describe package(package) do
+    it { should be_installed }
+  end
+end
 
 describe file(config) do
   it { should be_file }
@@ -32,7 +41,7 @@ describe file(config) do
   its(:content) { should match /do-ip4: yes/ }
   its(:content) { should match /do-ip6: no/ }
   its(:content) { should match /verbosity: 0/ }
-  its(:content) { should match /username: nsd/ }
+  its(:content) { should match /username: #{user}/ }
   its(:content) { should_not match /chroot: / }
   its(:content) { should match Regexp.escape("zonesdir: \"#{config_dir}\"") }
   its(:content) { should match Regexp.escape("database: \"#{db_dir}/nsd.db\"") }
