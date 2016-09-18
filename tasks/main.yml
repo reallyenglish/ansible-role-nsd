@@ -31,6 +31,7 @@
     mode: 0644
   with_dict: "{{ nsd_zones }}"
   when: "{{ 'zonefile' in item.value }}"
+  notify: Reload nsd
   
 - name: Create nsd.conf
   template:
