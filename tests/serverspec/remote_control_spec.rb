@@ -99,11 +99,3 @@ describe file(key_file) do
   its(:content) { should match Regexp.escape("secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=") }
   its(:content) { should match /algorithm: hmac-sha256/ }
 end
-
-describe command('drill -o rd example.com @127.0.0.1 ns') do
-  its(:stdout) { should match /;; flags: qr aa ; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1/ }
-  its(:stdout) { should match /example\.com.\s+86400\s+IN\s+NS\s+ns1\.example\.com\./ }
-  its(:stdout) { should match /ns1\.example\.com\.\s+120\s+IN\s+A\s+192\.168\.0\.1/ }
-  its(:stdout) { should match /;; SERVER: 127\.0\.0\.1/ }
-  its(:stderr) { should match /^$/ }
-end
