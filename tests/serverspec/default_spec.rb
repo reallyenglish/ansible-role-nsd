@@ -95,7 +95,3 @@ describe command('drill example.com @127.0.0.1 axfr') do
   its(:stdout) { should match /example\.com\.\s+86400\s+IN\s+SOA\s+ns1\.example\.com\.\s+hostmaster\.example\.com\.\s+2013020201\s+10800\s+3600\s+604800\s+3600/ }
   its(:stderr) { should match /^$/ }
 end
-
-describe command('drill -y my_tsig_key:Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=:hmac-sha256 example.com @192.168.133.101 axfr') do
-  its(:stderr) { should match /AXFR failed/ }
-end
