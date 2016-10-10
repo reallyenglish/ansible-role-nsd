@@ -110,20 +110,6 @@ Example Playbook
 * setup keys for remote control automatically
 * request AXFR with TSIG key
 
-kitchen test does not work
---------------------------
-
-As test-kitchen does not support testing multiple VMs in one batch, you must
-test by running the following commands:
-
-    > bundle exec kitchen destroy
-    > bundle exec kitchen converge
-    > bundle exec kitchen verify
-    > bundle exec kitchen destroy
-
-"Ability to test recipes that require multiple VMs connected to a chef server"
-https://github.com/test-kitchen/test-kitchen/issues/184
-
 License
 -------
 
