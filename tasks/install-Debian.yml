@@ -1,0 +1,11 @@
+---
+
+- name: Install nsd
+  apt:
+    name: nsd
+    state: present
+
+- name: Install ldnsutils
+  apt:
+    name: ldnsutils
+    state: present

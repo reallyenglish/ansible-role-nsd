@@ -31,7 +31,7 @@ Role Variables
 | nsd\_conf\_verbosity | verbosesity | 0 |
 | nsd\_conf\_zonesdir | zone dir | {{ nsd\_conf\_dir }} |
 | nsd\_conf\_statistics | interval to update stats if nsd\_statistics\_enable is true | 3600 |
-| nsd\_conf\_round\_robin | enable round robin | no |
+| nsd\_conf\_round\_robin | set "yes" to enable round robin | False |
 | nsd\_remote\_enable | enable remote control | false |
 | nsd\_remote\_setup | run nsd-control-setup to create keys. if false, nsd\_conf\_server\_key, nsd\_conf\_server\_cert, nsd\_conf\_control\_key and nsd\_conf\_control\_cert should be provided by the user | false |
 | nsd\_conf\_control\_interface | list of interfaces to listen on | ["127.0.0.1"] |
@@ -45,6 +45,16 @@ Role Variables
 | nsd\_conf\_control\_key | content of nsd\_control.key | "" |
 | nsd\_conf\_control\_cert | content of nsd\_control.pub | "" |
 | nsd\_zones | dict of zone date (see below) | Null |
+
+## Debian
+
+| Variable | Default |
+|----------|---------|
+| \_\_nsd\_user | nsd |
+| \_\_nsd\_group | nsd |
+| \_\_nsd\_db\_dir | /var/lib/nsd |
+| \_\_nsd\_conf\_dir | /etc/nsd |
+| \_\_nsd\_run\_dir | /var/run/nsd |
 
 ## FreeBSD
 

@@ -12,7 +12,10 @@ server:
     do-ip6: {{ nsd_conf_do_ip6 }}
     verbosity: {{ nsd_conf_verbosity }}
     username: {{ nsd_user }}
+{# some distributions have older nsd package that does not support round-robin #}
+{% if nsd_conf_round_robin %}
     round-robin: {{ nsd_conf_round_robin }}
+{% endif %}
 
 {% if nsd_chroot_enable %}
     chroot: "{{ nsd_conf_dir }}"

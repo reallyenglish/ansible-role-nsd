@@ -80,17 +80,13 @@ describe command('nsd-control reload') do
   its(:stderr) { should match /^$/ }
 end
 
-# serverspec on FreeBSD does not support this
-case os[:family]
-when 'freebsd'
-else
-  describe port(8952) do
-    it {
-      pending('serverspec does not properly handle netstat on OpenBSD') if os[:family] == 'openbsd'
-      should_not be_listening.on('192.168.133.101').with('tcp')
-    }
-    it { should be_listening.on('192.168.133.101').with('tcp') }
-  end
+describe port(8952) do
+  it {
+    pending('serverspec does not properly handle netstat on OpenBSD') if os[:family] == 'openbsd'
+    pending('serverspec does not properly handle netstat on FreeBSD') if os[:family] == 'freebsd'
+    should_not be_listening.on('192.168.133.101').with('tcp')
+  }
+  it { should be_listening.on('127.0.0.1').with('tcp') }
 end
 
 describe file(key_file) do
