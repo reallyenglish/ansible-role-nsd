@@ -13,10 +13,10 @@ Role Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| nsd\_user | nsd user | nsd |
-| nsd\_group | nsd group | nsd |
+| nsd\_user | nsd user | \_\_nsd\_user |
+| nsd\_group | nsd group | \_\_nsd\_group |
 | nsd\_db\_dir | db dir | {{ \_\_nsd\_db\_dir }} |
-| nsd\_run\_dir | run dir | /var/run/nsd |
+| nsd\_run\_dir | run dir | \_\_nsd\_run\_dir |
 | nsd\_service | service name | nsd |
 | nsd\_conf\_dir | path to config dir | {{ \_\_nsd\_conf\_dir }} |
 | nsd\_conf | path to nsd.conf | {{ nsd\_conf\_dir }}/nsd.conf |
@@ -46,12 +46,25 @@ Role Variables
 | nsd\_conf\_control\_cert | content of nsd\_control.pub | "" |
 | nsd\_zones | dict of zone date (see below) | Null |
 
-### FreeBSD
+## FreeBSD
 
-| Variable |  Default |
-|----------|----------|
+| Variable | Default |
+|----------|---------|
+| \_\_nsd\_user | nsd |
+| \_\_nsd\_group | nsd |
 | \_\_nsd\_db\_dir | /var/db/nsd |
 | \_\_nsd\_conf\_dir | /usr/local/etc/nsd |
+| \_\_nsd\_run\_dir | /var/run/nsd |
+
+## OpenBSD
+
+| Variable | Default |
+|----------|---------|
+| \_\_nsd\_user | \_nsd |
+| \_\_nsd\_group | \_nsd |
+| \_\_nsd\_db\_dir | /var/nsd/db |
+| \_\_nsd\_conf\_dir | /var/nsd/etc |
+| \_\_nsd\_run\_dir | /var/nsd/run |
 
 Dependencies
 ------------
@@ -109,20 +122,6 @@ Example Playbook
 * enable remote control
 * setup keys for remote control automatically
 * request AXFR with TSIG key
-
-kitchen test does not work
---------------------------
-
-As test-kitchen does not support testing multiple VMs in one batch, you must
-test by running the following commands:
-
-    > bundle exec kitchen destroy
-    > bundle exec kitchen converge
-    > bundle exec kitchen verify
-    > bundle exec kitchen destroy
-
-"Ability to test recipes that require multiple VMs connected to a chef server"
-https://github.com/test-kitchen/test-kitchen/issues/184
 
 License
 -------

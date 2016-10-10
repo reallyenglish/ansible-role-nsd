@@ -1,0 +1,20 @@
+---
+nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
+nsd_remote_setup: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
+nsd_keys:
+  my_tsig_key:
+    secret: 'Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ='
+    algorithm: hmac-sha256
+nsd_zones:
+  example.com:
+    zonefile: example.com.zone
+    zone: |
+      example.com. 86400 IN SOA ns1.example.com. hostmaster.example.com. 2013020201 10800 3600 604800 3600
+      example.com. 86400 IN NS ns1.example.com.
+      example.com. 120 IN A 192.168.0.1
+      ns1.example.com. 120 IN A 192.168.0.1
+      mail.example.com. 120 IN A 192.168.0.1
+      example.com. 120 IN MX 25 mail.example.com.
+    provide_xfr:
+      - 192.168.133.101 my_tsig_key
+      - 127.0.0.1 NOKEY
