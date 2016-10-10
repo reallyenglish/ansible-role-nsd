@@ -18,7 +18,7 @@ nsd_conf_do_ip6: "no"
 nsd_conf_verbosity: 0
 nsd_conf_zonesdir: "{{ nsd_conf_dir }}"
 nsd_conf_statistics: 3600
-nsd_conf_round_robin: "no"
+nsd_conf_round_robin: False
 nsd_conf_server_count: 1
 
 nsd_remote_enable: false

@@ -48,7 +48,7 @@ describe file(config) do
   its(:content) { should match Regexp.escape("pidfile: \"#{run_dir}/nsd.pid\"") }
   its(:content) { should match Regexp.escape("xfrdfile: \"#{db_dir}/xfrd.state\"") }
   its(:content) { should match /verbosity: 0/ }
-  its(:content) { should match /round-robin: no/ }
+  its(:content) { should_not match /round-robin:/ }
   if os[:family] == 'freebsd'
     its(:content) { should_not match /control-enable: yes/ }
   end
