@@ -1,15 +1,12 @@
-ansible-role-nsd
-=====================
+# ansible-role-nsd
 
 Configure NSD
 
-Requirements
-------------
+# Requirements
 
 None
 
-Role Variables
---------------
+# Role Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -76,15 +73,13 @@ Role Variables
 | \_\_nsd\_conf\_dir | /var/nsd/etc |
 | \_\_nsd\_run\_dir | /var/nsd/run |
 
-Dependencies
-------------
+# Dependencies
 
 None
 
-Example Playbook
-----------------
+# Example Playbook
 
-### Master DNS
+## Master DNS
 
       - hosts: localhost
         roles:
@@ -111,7 +106,7 @@ Example Playbook
 * allow secure AXFR from 192.168.133.101
 * allow insecure AXFR from localhost
 
-### Slave
+## Slave
 
       - hosts: localhost
         roles:
@@ -133,12 +128,10 @@ Example Playbook
 * setup keys for remote control automatically
 * request AXFR with TSIG key
 
-License
--------
+# License
 
 BSD
 
-Author Information
-------------------
+# Author Information
 
 Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
