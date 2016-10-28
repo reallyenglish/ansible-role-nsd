@@ -44,3 +44,6 @@
     group: "{{ nsd_group }}"
   notify: Restart nsd
   when: not nsd_remote_setup
+
+- include: "configure-remote-RedHat.yml"
+  when: "{{ ansible_os_family == 'RedHat' }}"

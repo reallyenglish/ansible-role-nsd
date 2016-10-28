@@ -1,0 +1,23 @@
+module local_nsd 1.0;
+
+require {
+    type tmp_t;
+    type nsd_t;
+    type unreserved_port_t;
+    class capability net_admin;
+    class file { write create open };
+    class dir { write remove_name create rmdir add_name };
+    class tcp_socket name_bind;
+}
+
+#============= nsd_t ==============
+
+allow nsd_t self:capability net_admin;
+allow nsd_t tmp_t:dir rmdir;
+
+allow nsd_t tmp_t:dir { write remove_name create add_name };
+
+allow nsd_t tmp_t:file create;
+allow nsd_t tmp_t:file { write open };
+
+allow nsd_t unreserved_port_t:tcp_socket name_bind;

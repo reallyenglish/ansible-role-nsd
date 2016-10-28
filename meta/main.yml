@@ -17,7 +17,8 @@ galaxy_info:
     - trusty
   - name: EL
     versions:
-     - 7
+    - 7
   galaxy_tags:
     - DNS
-dependencies: []
+dependencies:
+  - { role: reallyenglish.redhat-repo }

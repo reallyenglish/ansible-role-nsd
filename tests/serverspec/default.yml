@@ -1,5 +1,6 @@
 - hosts: localhost
   roles:
+    - reallyenglish.redhat-repo
     - ansible-role-nsd
   vars:
     nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
@@ -21,3 +22,11 @@
         provide_xfr:
           - 192.168.133.101 my_tsig_key
           - 127.0.0.1 NOKEY
+
+    redhat_repo_extra_packages:
+      - epel-release
+    redhat_repo:
+      epel:
+        mirrorlist: "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-{{ ansible_distribution_major_version | default(7) }}&arch={{ ansible_architecture }}"
+        gpgcheck: yes
+        enabled: yes
