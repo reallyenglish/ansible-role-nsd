@@ -79,6 +79,7 @@ task :prepare_role do
   tmpfile.write ignore_files.join("\n")
   tmpfile.close
   sh "tar -c -X #{tmpfile.path} -C #{role_dir.parent} -f - #{role_name} | tar -x -C #{test_dir}/roles -f -"
+  sh "git clone https://github.com/reallyenglish/ansible-role-redhat-repo.git roles/reallyenglish.redhat-repo"
 end
 
 desc 'vagrant up'
