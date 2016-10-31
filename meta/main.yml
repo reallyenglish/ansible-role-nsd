@@ -4,7 +4,7 @@ galaxy_info:
   description: Configures nsd
   company: Reallyenglish
   license: BSD
-  min_ansible_version: 2.0
+  min_ansible_version: 2.1
   platforms:
   - name: FreeBSD
     versions:
@@ -15,9 +15,10 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - trusty
-#  - name: EL
-#    versions:
-#      - 7
+  - name: EL
+    versions:
+    - 7
   galaxy_tags:
     - DNS
-dependencies: []
+dependencies:
+  - { role: reallyenglish.redhat-repo }

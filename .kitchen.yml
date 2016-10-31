@@ -17,6 +17,8 @@ provisioner:
   additional_copy_path:
     - extra_modules
     - filter_plugins
+    - extra_roles
+    - files
 
 platforms:
   - name: freebsd-10.3-amd64
@@ -44,6 +46,11 @@ platforms:
   - name: ubuntu-14.04-amd64
     driver:
       box: trombik/ansible-ubuntu-14.04-amd64
+      box_check_update: false
+
+  - name: centos-7.2-x86_64
+    driver:
+      box: trombik/ansible-centos-7.2-x86_64
       box_check_update: false
 
 suites:

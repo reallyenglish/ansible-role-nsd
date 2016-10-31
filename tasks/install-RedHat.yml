@@ -1,0 +1,25 @@
+---
+
+- name: Install nsd
+  yum:
+    name: nsd
+    state: present
+
+- name: Install ldnsutils
+  yum:
+    name: ldns
+    state: present
+
+- name: Install openssl
+  yum:
+    name: openssl
+    state: present
+
+- name: Install SELinux tools
+  # required when listening on non-default ports
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libselinux-python
+    - policycoreutils-python
