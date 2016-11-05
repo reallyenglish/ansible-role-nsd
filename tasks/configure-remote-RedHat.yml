@@ -1,0 +1,19 @@
+# XXX SELinux policy for nsd is broken as of this writing (2016/10/28)
+- name: Create a wrapper to load SELinux policy
+  copy:
+    src: RedHat/semodule_load_te.sh
+    dest: /bin/semodule_load_te
+    mode: 0755
+  when: "{{ ansible_os_family == 'RedHat' }}"
+
+- name: Configure SELinux policy (control)
+  copy:
+    src: files/RedHat/local_nsd.te
+    dest: "{{ nsd_conf_dir }}/local_nsd.te"
+    validate: "checkmodule -M -m %s"
+  register: register_local_nsd_te
+  when: "{{ ansible_os_family == 'RedHat' }}"
+
+- name: Load SELinux policy (control)
+  shell: "/bin/semodule_load_te {{ nsd_conf_dir }}/local_nsd.te"
+  when: "{{ ansible_os_family == 'RedHat' and register_local_nsd_te.changed }}"
