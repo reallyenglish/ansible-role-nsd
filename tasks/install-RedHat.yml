@@ -18,8 +18,11 @@
 - name: Install SELinux tools
   # required when listening on non-default ports
   yum:
-    name: "{{ item }}"
+    name: libselinux-python
     state: present
-  with_items:
-    - libselinux-python
-    - policycoreutils-python
+
+- name: Install SELinux tools
+  # required when listening on non-default ports
+  yum:
+    name: policycoreutils-python
+    state: present

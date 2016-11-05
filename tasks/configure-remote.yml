@@ -1,6 +1,7 @@
 ---
 
-- command: nsd-control-setup
+- name: Run nsd-control-setup
+  command: nsd-control-setup
   args:
     creates: "{{ nsd_conf_dir }}/nsd_control.key"
   when: nsd_remote_setup
