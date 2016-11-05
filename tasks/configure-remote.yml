@@ -6,7 +6,7 @@
     creates: "{{ nsd_conf_dir }}/nsd_control.key"
   when: nsd_remote_setup
 
-- name: create nsd_server.key
+- name: Create nsd_server.key
   template:
     src: nsd_server.key.j2
     dest: "{{ nsd_conf_server_key_file }}"
@@ -16,7 +16,7 @@
   notify: Restart nsd
   when: not nsd_remote_setup
 
-- name: create nsd_server.pem
+- name: Create nsd_server.pem
   template:
     src: nsd_server.pem.j2
     dest: "{{ nsd_conf_server_cert_file }}"
@@ -26,7 +26,7 @@
   notify: Restart nsd
   when: not nsd_remote_setup
 
-- name: create nsd_control.key
+- name: Create nsd_control.key
   template:
     src: nsd_control.key.j2
     dest: "{{ nsd_conf_control_key_file }}"
@@ -36,7 +36,7 @@
   notify: Restart nsd
   when: not nsd_remote_setup
 
-- name: create nsd_control.pem
+- name: Create nsd_control.pem
   template:
     src: nsd_control.pem.j2
     dest: "{{ nsd_conf_control_cert_file }}"

@@ -14,7 +14,7 @@
     state: directory
   notify: Restart nsd
 
-- name: create key for TSIG
+- name: Create key for TSIG
   template:
     src: key.j2
     dest: "{{ nsd_conf_dir }}/{{ item.key }}.key"
