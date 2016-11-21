@@ -13,6 +13,7 @@
     mode: 0600
     owner: "{{ nsd_user }}"
     group: "{{ nsd_group }}"
+    validate: openssl rsa -in %s -check
   notify: Restart nsd
   when: not nsd_remote_setup
 
@@ -23,6 +24,7 @@
     mode: 0644
     owner: "{{ nsd_user }}"
     group: "{{ nsd_group }}"
+    validate: openssl x509 -in %s -text -noout
   notify: Restart nsd
   when: not nsd_remote_setup
 
@@ -33,6 +35,7 @@
     mode: 0600
     owner: "{{ nsd_user }}"
     group: "{{ nsd_group }}"
+    validate: openssl rsa -in %s -check
   notify: Restart nsd
   when: not nsd_remote_setup
 
@@ -43,6 +46,7 @@
     mode: 0644
     owner: "{{ nsd_user }}"
     group: "{{ nsd_group }}"
+    validate: openssl x509 -in %s -text -noout
   notify: Restart nsd
   when: not nsd_remote_setup
 
