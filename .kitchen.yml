@@ -78,3 +78,17 @@ suites:
     verifier:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_spec.rb
+
+  - name: remote_control_with_variables
+    provisioner:
+      name: ansible_playbook
+      playbook: tests/serverspec/remote_control_with_variables.yml
+    driver:
+      network:
+      -  ["private_network", {ip: "192.168.133.101/24"}]
+    verifier:
+      name: shell
+      command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_with_variables_spec.rb
+    # as this test case is platform-independant, running on a single platform
+    # is enough.
+    includes: centos-7.2-x86_64
