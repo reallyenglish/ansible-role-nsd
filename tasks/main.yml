@@ -37,6 +37,7 @@
   template:
     src: nsd.conf.j2
     dest: "{{ nsd_conf }}"
+    validate: nsd-checkconf %s
   notify: Reload nsd
 
 - include: configure-remote.yml
