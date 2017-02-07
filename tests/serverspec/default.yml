@@ -22,6 +22,10 @@
         provide_xfr:
           - 192.168.133.101 my_tsig_key
           - 127.0.0.1 NOKEY
+        allow_notify: 127.0.0.1 NOKEY
+        request_xfr:  127.0.0.1 NOKEY
+        outgoing_interface: 192.168.0.1
+        allow_axfr_fallback: yes
 
     redhat_repo_extra_packages:
       - epel-release

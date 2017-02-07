@@ -61,6 +61,11 @@ zone:
 {% if 'zonefile' in v %}
     zonefile: "{{ v['zonefile'] }}"
 {% endif %}
+{% if 'allow_notify' in v %}
+{%  for acl in v['allow_notify'] %}
+    allow-notify: {{ acl }}
+{%  endfor %}
+{% endif %}
 {% if 'provide_xfr' in v %}
 {%  for xfr in v['provide_xfr'] %}
     provide-xfr: {{ xfr }}
@@ -69,6 +74,14 @@ zone:
 {% if 'request_xfr' in v %}
 {%  for xfr in v['request_xfr'] %}
     request-xfr: {{ xfr }}
+{%-  endfor %}
+{% endif %}
+{% if 'allow_axfr_fallback' in v %}
+    allow-axfr-fallback: "{{ v['allow_axfr_fallback'] }}"
+{% endif %}
+{% if 'outgoing_interface' in v %}
+{%  for acl in v['outgoing_interface'] %}
+    outgoing-interface: {{ acl }}
 {%-  endfor %}
 {% endif %}
 {% endfor %}
