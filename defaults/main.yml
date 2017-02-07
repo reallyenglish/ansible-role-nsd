@@ -2,6 +2,7 @@ nsd_user: "{{ __nsd_user }}"
 nsd_group: "{{ __nsd_group }}"
 nsd_db_dir: "{{ __nsd_db_dir }}"
 nsd_run_dir: "{{ __nsd_run_dir }}"
+nsd_state_dir: "{{ __nsd_state_dir }}"
 nsd_service: nsd
 nsd_conf_dir: "{{ __nsd_conf_dir }}"
 nsd_conf: "{{ nsd_conf_dir }}/nsd.conf"

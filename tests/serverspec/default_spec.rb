@@ -11,6 +11,7 @@ ports   = [ 53 ]
 log_dir = '/var/log/nsd'
 db_dir  = '/var/lib/nsd'
 run_dir = '/var/run/nsd'
+state_dir = db_dir
 
 case os[:family]
 when 'openbsd'
@@ -20,10 +21,12 @@ when 'openbsd'
   config_dir = '/var/nsd/etc'
   db_dir = '/var/nsd/db'
   run_dir = '/var/nsd/run'
+  state_dir = run_dir
 when 'freebsd'
   config = '/usr/local/etc/nsd/nsd.conf'
   config_dir = '/usr/local/etc/nsd'
   db_dir = '/var/db/nsd'
+  state_dir = db_dir
 end
 
 key_file = "#{ config_dir }/my_tsig_key.key"
@@ -43,10 +46,10 @@ describe file(config) do
   its(:content) { should match /verbosity: 0/ }
   its(:content) { should match /username: #{user}/ }
   its(:content) { should_not match /chroot: / }
-  its(:content) { should match Regexp.escape("zonesdir: \"#{config_dir}\"") }
-  its(:content) { should match Regexp.escape("database: \"#{db_dir}/nsd.db\"") }
-  its(:content) { should match Regexp.escape("pidfile: \"#{run_dir}/nsd.pid\"") }
-  its(:content) { should match Regexp.escape("xfrdfile: \"#{db_dir}/xfrd.state\"") }
+  its(:content) { should include(%Q[zonesdir: "#{config_dir}"]) }
+  its(:content) { should include(%Q[database: "#{db_dir}/nsd.db"]) }
+  its(:content) { should include(%Q[pidfile: "#{run_dir}/nsd.pid"]) }
+  its(:content) { should include(%Q[xfrdfile: "#{state_dir}/xfrd.state"]) }
   its(:content) { should match /verbosity: 0/ }
   its(:content) { should_not match /round-robin:/ }
   if os[:family] == 'freebsd'

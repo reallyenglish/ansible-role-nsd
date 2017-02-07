@@ -21,13 +21,13 @@ server:
     chroot: "{{ nsd_conf_dir }}"
 {% endif %}
     zonesdir: "{{ nsd_conf_zonesdir }}"
-    
+
     # the list of dynamically added zones.
     # zonelistfile: "/var/db/nsd/zone.list"
 
     database: "{{ nsd_db_dir }}/nsd.db"
     pidfile: "{{ nsd_run_dir }}/nsd.pid"
-    xfrdfile: "{{ nsd_db_dir }}/xfrd.state"
+    xfrdfile: "{{ nsd_state_dir }}/xfrd.state"
     hide-version: yes
 {% if nsd_statistics_enable %}
     statistics: {{ nsd_conf_statistics }}
