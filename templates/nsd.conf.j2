@@ -74,7 +74,7 @@ zone:
 {% if 'request_xfr' in v %}
 {%  for xfr in v['request_xfr'] %}
     request-xfr: {{ xfr }}
-{%-  endfor %}
+{%  endfor %}
 {% endif %}
 {% if 'allow_axfr_fallback' in v %}
     allow-axfr-fallback: "{{ v['allow_axfr_fallback'] }}"
@@ -82,6 +82,6 @@ zone:
 {% if 'outgoing_interface' in v %}
 {%  for acl in v['outgoing_interface'] %}
     outgoing-interface: {{ acl }}
-{%-  endfor %}
+{%  endfor %}
 {% endif %}
 {% endfor %}
