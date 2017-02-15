@@ -1,6 +1,5 @@
 - hosts: localhost
   roles:
-    - reallyenglish.redhat-repo
     - ansible-role-nsd
   vars:
     nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"

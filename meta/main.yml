@@ -21,4 +21,4 @@ galaxy_info:
   galaxy_tags:
     - DNS
 dependencies:
-  - { role: reallyenglish.redhat-repo }
+  - { src: reallyenglish.redhat-repo, when: ansible_os_family == 'RedHat' }
