@@ -218,11 +218,11 @@ describe command("nsd-control reload") do
 end
 
 describe port(8952) do
-  it {
+  it do
     pending("serverspec does not properly handle netstat on OpenBSD") if os[:family] == "openbsd"
     pending("serverspec does not properly handle netstat on FreeBSD") if os[:family] == "freebsd"
     should_not be_listening.on("192.168.133.101").with("tcp")
-  }
+  end
   it { should be_listening.on("127.0.0.1").with("tcp") }
 end
 
