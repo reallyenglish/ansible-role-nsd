@@ -3,3 +3,4 @@ __nsd_group: nsd
 __nsd_db_dir: /var/db/nsd
 __nsd_conf_dir: /usr/local/etc/nsd
 __nsd_run_dir: /var/run/nsd
+__nsd_state_dir: "{{ __nsd_db_dir }}"

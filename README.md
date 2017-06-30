@@ -23,6 +23,7 @@ it, other platforms do not require it.
 | nsd\_group | nsd group | \_\_nsd\_group |
 | nsd\_db\_dir | db dir | {{ \_\_nsd\_db\_dir }} |
 | nsd\_run\_dir | run dir | \_\_nsd\_run\_dir |
+| nsd\_state\_dir | state dir | \_\_nsd\_state\_dir |
 | nsd\_service | service name | nsd |
 | nsd\_conf\_dir | path to config dir | {{ \_\_nsd\_conf\_dir }} |
 | nsd\_conf | path to nsd.conf | {{ nsd\_conf\_dir }}/nsd.conf |
@@ -61,6 +62,7 @@ it, other platforms do not require it.
 | \_\_nsd\_db\_dir | /var/lib/nsd |
 | \_\_nsd\_conf\_dir | /etc/nsd |
 | \_\_nsd\_run\_dir | /var/run/nsd |
+| \_\_nsd\_state\_dir | /var/lib/nsd |
 
 ## FreeBSD
 
@@ -71,6 +73,7 @@ it, other platforms do not require it.
 | \_\_nsd\_db\_dir | /var/db/nsd |
 | \_\_nsd\_conf\_dir | /usr/local/etc/nsd |
 | \_\_nsd\_run\_dir | /var/run/nsd |
+| \_\_nsd\_state\_dir | /var/db/nsd |
 
 ## OpenBSD
 
@@ -81,6 +84,7 @@ it, other platforms do not require it.
 | \_\_nsd\_db\_dir | /var/nsd/db |
 | \_\_nsd\_conf\_dir | /var/nsd/etc |
 | \_\_nsd\_run\_dir | /var/nsd/run |
+| \_\_nsd\_state\_dir | /var/nsd/run |
 
 ## RedHat
 
@@ -91,6 +95,7 @@ it, other platforms do not require it.
 | \_\_nsd\_db\_dir | /var/lib/nsd |
 | \_\_nsd\_conf\_dir | /etc/nsd |
 | \_\_nsd\_run\_dir | /var/run/nsd |
+| \_\_nsd\_state\_dir | /var/lib/nsd |
 
 Created by [yaml2readme.rb](https://gist.github.com/trombik/b2df709657c08d845b1d3b3916e592d3)
 

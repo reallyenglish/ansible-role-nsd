@@ -21,4 +21,8 @@ galaxy_info:
   galaxy_tags:
     - DNS
 dependencies:
-  - { role: reallyenglish.redhat-repo }
+# XXX until all ansible version is upgraded to the one that supports new
+# format, use old format.
+# https://github.com/reallyenglish/ansible-role-nsd/issues/29
+#  - { src: reallyenglish.redhat-repo, when: ansible_os_family == 'RedHat' }
+  - { role: reallyenglish.redhat-repo, when: ansible_os_family == 'RedHat' }
