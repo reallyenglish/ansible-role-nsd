@@ -1,37 +1,36 @@
-require 'spec_helper'
-require 'serverspec'
+require "spec_helper"
+require "serverspec"
 
-package = 'nsd'
-service = 'nsd'
-config  = '/etc/nsd/nsd.conf'
-config_dir = '/etc/nsd'
-user    = 'nsd'
-group   = 'nsd'
-ports   = [ 53 ]
-log_dir = '/var/log/nsd'
-db_dir  = '/var/lib/nsd'
-run_dir = '/var/run/nsd'
+package = "nsd"
+service = "nsd"
+config  = "/etc/nsd/nsd.conf"
+config_dir = "/etc/nsd"
+user    = "nsd"
+group   = "nsd"
+ports   = [53]
+db_dir  = "/var/lib/nsd"
+run_dir = "/var/run/nsd"
 state_dir = db_dir
 
 case os[:family]
-when 'openbsd'
-  user = '_nsd'
+when "openbsd"
+  user = "_nsd"
   group = user
-  config = '/var/nsd/etc/nsd.conf'
-  config_dir = '/var/nsd/etc'
-  db_dir = '/var/nsd/db'
-  run_dir = '/var/nsd/run'
+  config = "/var/nsd/etc/nsd.conf"
+  config_dir = "/var/nsd/etc"
+  db_dir = "/var/nsd/db"
+  run_dir = "/var/nsd/run"
   state_dir = run_dir
-when 'freebsd'
-  config = '/usr/local/etc/nsd/nsd.conf'
-  config_dir = '/usr/local/etc/nsd'
-  db_dir = '/var/db/nsd'
+when "freebsd"
+  config = "/usr/local/etc/nsd/nsd.conf"
+  config_dir = "/usr/local/etc/nsd"
+  db_dir = "/var/db/nsd"
   state_dir = db_dir
 end
 
-key_file = "#{ config_dir }/my_tsig_key.key"
+key_file = "#{config_dir}/my_tsig_key.key"
 
-if os[:family] != 'openbsd'
+if os[:family] != "openbsd"
   describe package(package) do
     it { should be_installed }
   end
@@ -39,21 +38,21 @@ end
 
 describe file(config) do
   it { should be_file }
-  its(:content) { should match /ip-address: 10\.0\.2\./ }
-  its(:content) { should match /ip-address: 127\.0\.0\.1/ }
-  its(:content) { should match /do-ip4: yes/ }
-  its(:content) { should match /do-ip6: no/ }
-  its(:content) { should match /verbosity: 0/ }
-  its(:content) { should match /username: #{user}/ }
-  its(:content) { should_not match /chroot: / }
-  its(:content) { should include(%Q[zonesdir: "#{config_dir}"]) }
-  its(:content) { should include(%Q[database: "#{db_dir}/nsd.db"]) }
-  its(:content) { should include(%Q[pidfile: "#{run_dir}/nsd.pid"]) }
-  its(:content) { should include(%Q[xfrdfile: "#{state_dir}/xfrd.state"]) }
-  its(:content) { should match /verbosity: 0/ }
-  its(:content) { should_not match /round-robin:/ }
-  if os[:family] == 'freebsd'
-    its(:content) { should_not match /control-enable: yes/ }
+  its(:content) { should match(/ip-address: 10\.0\.2\./) }
+  its(:content) { should match(/ip-address: 127\.0\.0\.1/) }
+  its(:content) { should match(/do-ip4: yes/) }
+  its(:content) { should match(/do-ip6: no/) }
+  its(:content) { should match(/verbosity: 0/) }
+  its(:content) { should match(/username: #{user}/) }
+  its(:content) { should_not match(/chroot: /) }
+  its(:content) { should include(%(zonesdir: "#{config_dir}")) }
+  its(:content) { should include(%(database: "#{db_dir}/nsd.db")) }
+  its(:content) { should include(%(pidfile: "#{run_dir}/nsd.pid")) }
+  its(:content) { should include(%(xfrdfile: "#{state_dir}/xfrd.state")) }
+  its(:content) { should match(/verbosity: 0/) }
+  its(:content) { should_not match(/round-robin:/) }
+  if os[:family] == "freebsd"
+    its(:content) { should_not match(/control-enable: yes/) }
   end
 end
 
@@ -62,10 +61,6 @@ describe file(db_dir) do
   it { should be_mode 755 }
   it { should be_owned_by user }
   it { should be_grouped_into group }
-end
-
-case os[:family]
-when 'freebsd'
 end
 
 describe service(service) do
@@ -82,19 +77,19 @@ end
 describe file(key_file) do
   it { should be_file }
   it { should be_mode 600 }
-  its(:content) { should match Regexp.escape("secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=") }
-  its(:content) { should match /algorithm: hmac-sha256/ }
+  its(:content) { should match(Regexp.escape("secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=")) }
+  its(:content) { should match(/algorithm: hmac-sha256/) }
 end
 
-describe command('drill -o rd example.com @127.0.0.1 ns') do
-  its(:stdout) { should match /;; flags: qr aa ; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1/ }
-  its(:stdout) { should match /example\.com.\s+86400\s+IN\s+NS\s+ns1\.example\.com\./ }
-  its(:stdout) { should match /ns1\.example\.com\.\s+120\s+IN\s+A\s+192\.168\.0\.1/ }
-  its(:stdout) { should match /;; SERVER: 127\.0\.0\.1/ }
-  its(:stderr) { should match /^$/ }
+describe command("drill -o rd example.com @127.0.0.1 ns") do
+  its(:stdout) { should match(/;; flags: qr aa ; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1/) }
+  its(:stdout) { should match(/example\.com.\s+86400\s+IN\s+NS\s+ns1\.example\.com\./) }
+  its(:stdout) { should match(/ns1\.example\.com\.\s+120\s+IN\s+A\s+192\.168\.0\.1/) }
+  its(:stdout) { should match(/;; SERVER: 127\.0\.0\.1/) }
+  its(:stderr) { should match(/^$/) }
 end
 
-describe command('drill example.com @127.0.0.1 axfr') do
-  its(:stdout) { should match /example\.com\.\s+86400\s+IN\s+SOA\s+ns1\.example\.com\.\s+hostmaster\.example\.com\.\s+2013020201\s+10800\s+3600\s+604800\s+3600/ }
-  its(:stderr) { should match /^$/ }
+describe command("drill example.com @127.0.0.1 axfr") do
+  its(:stdout) { should match(/example\.com\.\s+86400\s+IN\s+SOA\s+ns1\.example\.com\.\s+hostmaster\.example\.com\.\s+2013020201\s+10800\s+3600\s+604800\s+3600/) }
+  its(:stderr) { should match(/^$/) }
 end
