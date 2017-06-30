@@ -166,9 +166,9 @@ describe file(config) do
   its(:content) { should match(/control-interface: 127\.0\.0\.1/) }
   its(:content) { should match(/control-port: 8952/) }
   its(:content) { should match(Regexp.escape("server-key-file: \"#{config_dir}/nsd_server.key\"")) }
-  its(:content) { should match(Regexp.escape("server-cert-file: \"#{config_dir}/)nsd_server.pem\"")) }
+  its(:content) { should match(Regexp.escape("server-cert-file: \"#{config_dir}/nsd_server.pem\"")) }
   its(:content) { should match(Regexp.escape("control-key-file: \"#{config_dir}/nsd_control.key\"")) }
-  its(:content) { should match(Regexp.escape("control-cert-file: \"#{config_dir}/)nsd_control.pem\"")) }
+  its(:content) { should match(Regexp.escape("control-cert-file: \"#{config_dir}/nsd_control.pem\"")) }
 end
 
 [server_key_file, control_key_file].each do |f|
