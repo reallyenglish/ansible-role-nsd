@@ -54,7 +54,7 @@ platforms:
 
   - name: centos-7.3-x86_64
     driver:
-      box: trombik/ansible-centos-7.2-x86_64
+      box: trombik/ansible-centos-7.3-x86_64
       box_check_update: false
 
 suites:
@@ -92,4 +92,4 @@ suites:
       command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_with_variables_spec.rb
     # as this test case is platform-independant, running on a single platform
     # is enough.
-    includes: centos-7.2-x86_64
+    includes: centos-7.3-x86_64
