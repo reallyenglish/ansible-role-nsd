@@ -51,4 +51,4 @@
   when: not nsd_remote_setup
 
 - include: "configure-remote-RedHat.yml"
-  when: "{{ ansible_os_family == 'RedHat' }}"
+  when: ansible_os_family == 'RedHat'
