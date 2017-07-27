@@ -7,7 +7,7 @@
       my_tsig_key:
         secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=
         algorithm: hmac-sha256
-    nsd_config_remote:
+    nsd_config_remote_control:
       - "control-enable: yes"
       - name: control-interface
         value: 127.0.0.1

@@ -28,7 +28,7 @@ it, other platforms do not require it.
 | `nsd_conf_dir` | path to config directory | `{{ __nsd_conf_dir }}` |
 | `nsd_conf` | path to `nsd.conf` | `{{ nsd_conf_dir }}/nsd.conf` |
 | `nsd_config_server` | list of configuration in `server` directive (see below) | `[]` |
-| `nsd_config_remote` | list of configuration in `remote-control` directive (see below) | `[]` |
+| `nsd_config_remote_control` | list of configuration in `remote-control` directive (see below) | `[]` |
 | `nsd_flags` | (not implemented) | `""` |
 | `nsd_remote_setup` | run `nsd-control-setup` to create self-signed keys. when false, you need to provide certificates and keys (use `reallyenglish.x509-certificate` and see an example in `tests/serverspec/remote_control_with_variables.yml` | `false` |
 | `nsd_zones` | dict of zones (see below) | `{}` |
@@ -74,7 +74,7 @@ An example:
         value: "yes"
 ```
 
-## `nsd_config_remote`
+## `nsd_config_remote_control`
 
 This variable is a list of dict or string for `remote-control` directive in
 `nsd.conf(5)`.
@@ -212,7 +212,7 @@ None
         value: "yes"
     nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
     nsd_remote_setup: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
-    nsd_config_remote:
+    nsd_config_remote_control:
       - "control-enable: {% if ansible_os_family == 'FreeBSD' %}no{% else %}yes{% endif %}"
     nsd_keys:
       my_tsig_key:

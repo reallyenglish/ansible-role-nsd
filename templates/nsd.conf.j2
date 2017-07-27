@@ -14,7 +14,7 @@ server:
 {% endfor %}
 
 remote-control:
-{% for l in nsd_config_remote %}
+{% for l in nsd_config_remote_control %}
 {% if l | isdict %}
 {% if 'value' in l %}
     {{ l['name'] }}: {{ l['value'] }}

@@ -7,7 +7,7 @@ nsd_service: nsd
 nsd_conf_dir: "{{ __nsd_conf_dir }}"
 nsd_conf: "{{ nsd_conf_dir }}/nsd.conf"
 nsd_config_server: []
-nsd_config_remote: []
+nsd_config_remote_control: []
 nsd_flags: ""
 nsd_remote_setup: false
 # master and slave

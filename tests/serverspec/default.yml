@@ -26,7 +26,7 @@
         value: "yes"
     nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
     nsd_remote_setup: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
-    nsd_config_remote:
+    nsd_config_remote_control:
       - "control-enable: {% if ansible_os_family == 'FreeBSD' %}no{% else %}yes{% endif %}"
     nsd_keys:
       my_tsig_key:

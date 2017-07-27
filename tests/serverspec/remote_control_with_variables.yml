@@ -168,7 +168,7 @@
     nsd_remote_enable: true
     nsd_remote_setup: false
     nsd_config_server: []
-    nsd_config_remote:
+    nsd_config_remote_control:
       - "control-enable: yes"
       - "control-interface: 127.0.0.1"
       - "control-port: 8952"
