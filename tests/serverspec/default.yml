@@ -66,7 +66,7 @@
           ns1.example.net. 120 IN A 192.168.0.1
           mail.example.net. 120 IN A 192.168.0.1
           example.net. 120 IN MX 25 mail.example.net.
-        config: ""
+        config: []
 
     redhat_repo_extra_packages:
       - epel-release
