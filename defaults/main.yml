@@ -11,4 +11,4 @@ nsd_config_remote: []
 nsd_flags: ""
 nsd_remote_setup: false
 # master and slave
-nsd_zones:
+nsd_zones: {}
