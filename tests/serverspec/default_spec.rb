@@ -51,7 +51,7 @@ describe file(config) do
   its(:content) { should_not match(/^chroot: /) }
   its(:content) { should_not match(/^key:\n\+name: my_tsig_key\n\s+include: "#{Regexp.escape("/usr/local/etc/nsd/my_tsig_key.key")}"/) }
 
-  zone = <<-__EOF__
+  zone_com = <<-__EOF__
     name: example.com
     zonefile: example.com.zone
     provide-xfr: 192.168.133.101 my_tsig_key
@@ -61,7 +61,14 @@ describe file(config) do
     outgoing-interface: 192.168.0.1
     allow-axfr-fallback: yes
   __EOF__
-  its(:content) { should match(/^zone:\n#{zone}/) }
+  its(:content) { should match(/^zone:\n#{zone_com}/) }
+
+  zone_net = <<-__EOF__
+    name: example.net
+    zonefile: example.net.zone
+  __EOF__
+  its(:content) { should match(/^zone:\n#{zone_net}/) }
+
   its(:content_as_yaml) { should include("remote-control" => include("control-enable" => os[:family] == "freebsd" ? false : true)) }
   its(:content) { should_not match(/round-robin:/) }
   if os[:family] == "freebsd"

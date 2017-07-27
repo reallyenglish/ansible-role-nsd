@@ -34,8 +34,8 @@ key:
     include: "{{ nsd_conf_dir }}/{{ k }}.key"
 {% endfor %}
 
-zone:
 {% for k, v in nsd_zones | dictsort %}
+zone:
     name: {{ k }}
 {% if 'zonefile' in v %}
     zonefile: {{ v.zonefile }}
