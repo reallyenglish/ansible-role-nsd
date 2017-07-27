@@ -136,10 +136,32 @@
       MH+7k9pELBjDVMJZxQYwzYQFI9Rdl+LsTrLk5WL7VwD4D+Y86+S0ColCX5+QaAbO
       OQ5B1CE6HXJkVbJd3SAvDD6Tghh82kaNmErU12lByNyv5Wzw0CC7aw==
       -----END RSA PRIVATE KEY-----
+    nsd_config_server: []
+    nsd_config_remote:
+      - "control-enable: yes"
+      - "control-interface: 127.0.0.1"
+      - "control-port: 8952"
+      - name: server-key-file
+        value: '"/etc/nsd/nsd_server.key"'
+      - name: server-cert-file
+        value: '"/etc/nsd/nsd_server.pem"'
+      - name: control-key-file
+        value: '"/etc/nsd/nsd_control.key"'
+      - name: control-cert-file
+        value: '"/etc/nsd/nsd_control.pem"'
     nsd_zones:
       example.com:
-        request_xfr:
-          - 192.168.133.100 my_tsig_key
+        zonefile: example.com.zone
+        zone: |
+          example.com. 86400 IN SOA ns1.example.com. hostmaster.example.com. 2013020201 10800 3600 604800 3600
+          example.com. 86400 IN NS ns1.example.com.
+          example.com. 120 IN A 192.168.0.1
+          ns1.example.com. 120 IN A 192.168.0.1
+          mail.example.com. 120 IN A 192.168.0.1
+          example.com. 120 IN MX 25 mail.example.com.
+        config:
+          - name: request-xfr
+            value: 192.168.133.100 my_tsig_key
 
     redhat_repo_extra_packages:
       - epel-release

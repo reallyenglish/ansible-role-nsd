@@ -5,6 +5,11 @@
     name: nsd
     state: present
 
+- name: Enable nsd
+  service:
+    name: "{{ nsd_service }}"
+    enabled: true
+
 - name: Install ldnsutils
   apt:
     name: ldnsutils
