@@ -13,14 +13,6 @@
         value: 127.0.0.1
       - name: control-port
         value: 8952
-      - name: server-key-file
-        value: '"{{ nsd_conf_server_key_file }}"'
-      - name: server-cert-file
-        value: '"{{ nsd_conf_server_cert_file }}"'
-      - name: control-key-file
-        value: '"{{ nsd_conf_control_key_file }}"'
-      - name:  control-cert-file
-        value: '"{{ nsd_conf_control_cert_file }}"'
     nsd_conf_control_enable: "yes"
     nsd_remote_enable: true
     nsd_remote_setup: true
