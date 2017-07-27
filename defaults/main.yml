@@ -9,10 +9,6 @@ nsd_conf: "{{ nsd_conf_dir }}/nsd.conf"
 nsd_config_server: []
 nsd_config_remote: []
 nsd_flags: ""
-
-nsd_chroot_enable: false
-nsd_chroot_dir: "{{ nsd_conf_dir }}"
-
 nsd_remote_setup: false
 # master and slave
 nsd_zones:
