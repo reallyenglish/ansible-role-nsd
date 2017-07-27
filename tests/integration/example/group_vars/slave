@@ -7,5 +7,6 @@ nsd_remote_enable: true
 nsd_remote_setup: true
 nsd_zones:
   example.com:
-    request_xfr:
-      - 192.168.133.100 my_tsig_key
+    config:
+      - name: request-xfr
+        value: 192.168.133.100 my_tsig_key
