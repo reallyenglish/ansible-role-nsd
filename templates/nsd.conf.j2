@@ -1,50 +1,32 @@
 server:
-    # Number of NSD servers to fork.  Put the number of CPUs to use here.
-    server-count: {{ nsd_conf_server_count }}
-{% set ip_addresses = nsd_ip_addresses if nsd_ip_addresses  else ansible_all_ipv4_addresses %}
-{% for ip in ip_addresses %}
-    ip-address: {{ ip }}
+{% for l in nsd_config_server %}
+{% if l | isdict %}
+{% if 'value' in l %}
+  {{ l['name'] }}: {{ l['value'] }}
+{% elif 'values' in l %}
+{% for value in l['values'] %}
+  {{ l['name'] }}: {{ value }}
 {% endfor %}
-{% if nsd_listen_on_localhost %}
-    ip-address: 127.0.0.1
 {% endif %}
-    do-ip4: {{ nsd_conf_do_ip4 }}
-    do-ip6: {{ nsd_conf_do_ip6 }}
-    verbosity: {{ nsd_conf_verbosity }}
-    username: {{ nsd_user }}
-{# some distributions have older nsd package that does not support round-robin #}
-{% if nsd_conf_round_robin %}
-    round-robin: {{ nsd_conf_round_robin }}
+{% else %}
+  {{ l }}
 {% endif %}
+{% endfor %}
 
-{% if nsd_chroot_enable %}
-    chroot: "{{ nsd_conf_dir }}"
-{% endif %}
-    zonesdir: "{{ nsd_conf_zonesdir }}"
-
-    # the list of dynamically added zones.
-    # zonelistfile: "/var/db/nsd/zone.list"
-
-    database: "{{ nsd_db_dir }}/nsd.db"
-    pidfile: "{{ nsd_run_dir }}/nsd.pid"
-    xfrdfile: "{{ nsd_state_dir }}/xfrd.state"
-    hide-version: yes
-{% if nsd_statistics_enable %}
-    statistics: {{ nsd_conf_statistics }}
-{% endif %}
-
-{% if nsd_remote_enable %}
 remote-control:
-    control-enable: yes
-{% for i in nsd_conf_control_interface %}
-    control-interface: {{ i }}
+{% for l in nsd_config_remote_control %}
+{% if l | isdict %}
+{% if 'value' in l %}
+    {{ l['name'] }}: {{ l['value'] }}
+{% elif 'values' in l %}
+{% for value in l['values'] %}
+    {{ l['name'] }}: {{ value }}
 {% endfor %}
-    control-port: {{ nsd_conf_control_port }}
-    server-key-file: "{{ nsd_conf_server_key_file }}"
-    server-cert-file: "{{ nsd_conf_server_cert_file }}"
-    control-key-file: "{{ nsd_conf_control_key_file }}"
-    control-cert-file: "{{ nsd_conf_control_cert_file }}"
 {% endif %}
+{% else %}
+    {{ l }}
+{% endif %}
+{% endfor %}
 
 key:
 {% for k, v in nsd_keys | dictsort %}
@@ -52,36 +34,23 @@ key:
     include: "{{ nsd_conf_dir }}/{{ k }}.key"
 {% endfor %}
 
-zone:
 {% for k, v in nsd_zones | dictsort %}
-    name: "{{ k }}"
-{% if 'include_pattern' in v %}
-    include-pattern: "{{ v['include_pattern'] }}"
-{%-  endif %}
+zone:
+    name: {{ k }}
 {% if 'zonefile' in v %}
-    zonefile: "{{ v['zonefile'] }}"
+    zonefile: {{ v.zonefile }}
 {% endif %}
-{% if 'allow_notify' in v %}
-{%  for acl in v['allow_notify'] %}
-    allow-notify: {{ acl }}
-{%  endfor %}
+{% for l in v.config %}
+{% if l | isdict %}
+{% if 'value' in l %}
+    {{ l['name'] }}: {{ l['value'] }}
+{% elif 'values' in l %}
+{% for value in l['values'] %}
+    {{ l['name'] }}: {{ value }}
+{% endfor %}
 {% endif %}
-{% if 'provide_xfr' in v %}
-{%  for xfr in v['provide_xfr'] %}
-    provide-xfr: {{ xfr }}
-{%  endfor %}
+{% else %}
+    {{ l }}
 {% endif %}
-{% if 'request_xfr' in v %}
-{%  for xfr in v['request_xfr'] %}
-    request-xfr: {{ xfr }}
-{%  endfor %}
-{% endif %}
-{% if 'allow_axfr_fallback' in v %}
-    allow-axfr-fallback: "{{ v['allow_axfr_fallback'] }}"
-{% endif %}
-{% if 'outgoing_interface' in v %}
-{%  for acl in v['outgoing_interface'] %}
-    outgoing-interface: {{ acl }}
-{%  endfor %}
-{% endif %}
+{% endfor %}
 {% endfor %}

@@ -40,16 +40,36 @@ describe file(config) do
   it { should be_file }
   its(:content) { should match(/ip-address: 10\.0\.2\./) }
   its(:content) { should match(/ip-address: 127\.0\.0\.1/) }
-  its(:content) { should match(/do-ip4: yes/) }
-  its(:content) { should match(/do-ip6: no/) }
-  its(:content) { should match(/verbosity: 0/) }
-  its(:content) { should match(/username: #{user}/) }
-  its(:content) { should_not match(/chroot: /) }
-  its(:content) { should include(%(zonesdir: "#{config_dir}")) }
-  its(:content) { should include(%(database: "#{db_dir}/nsd.db")) }
-  its(:content) { should include(%(pidfile: "#{run_dir}/nsd.pid")) }
-  its(:content) { should include(%(xfrdfile: "#{state_dir}/xfrd.state")) }
-  its(:content) { should match(/verbosity: 0/) }
+  its(:content_as_yaml) { should include("server" => include("do-ip4" => true)) }
+  its(:content_as_yaml) { should include("server" => include("do-ip6" => false)) }
+  its(:content_as_yaml) { should include("server" => include("verbosity" => 0)) }
+  its(:content_as_yaml) { should include("server" => include("username" => user)) }
+  its(:content_as_yaml) { should include("server" => include("zonesdir" => config_dir)) }
+  its(:content_as_yaml) { should include("server" => include("database" => "#{db_dir}/nsd.db")) }
+  its(:content_as_yaml) { should include("server" => include("pidfile" => "#{run_dir}/nsd.pid")) }
+  its(:content_as_yaml) { should include("server" => include("xfrdfile" => "#{state_dir}/xfrd.state")) }
+  its(:content) { should_not match(/^chroot: /) }
+  its(:content) { should_not match(/^key:\n\+name: my_tsig_key\n\s+include: "#{Regexp.escape("/usr/local/etc/nsd/my_tsig_key.key")}"/) }
+
+  zone_com = <<-__EOF__
+    name: example.com
+    zonefile: example.com.zone
+    provide-xfr: 192.168.133.101 my_tsig_key
+    provide-xfr: 127.0.0.1 NOKEY
+    allow-notify: 192.168.0.111 NOKEY
+    request-xfr: 192.168.0.111 NOKEY
+    outgoing-interface: 192.168.0.1
+    allow-axfr-fallback: yes
+  __EOF__
+  its(:content) { should match(/^zone:\n#{zone_com}/) }
+
+  zone_net = <<-__EOF__
+    name: example.net
+    zonefile: example.net.zone
+  __EOF__
+  its(:content) { should match(/^zone:\n#{zone_net}/) }
+
+  its(:content_as_yaml) { should include("remote-control" => include("control-enable" => os[:family] == "freebsd" ? false : true)) }
   its(:content) { should_not match(/round-robin:/) }
   if os[:family] == "freebsd"
     its(:content) { should_not match(/control-enable: yes/) }

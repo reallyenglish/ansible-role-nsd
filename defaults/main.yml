@@ -6,36 +6,9 @@ nsd_state_dir: "{{ __nsd_state_dir }}"
 nsd_service: nsd
 nsd_conf_dir: "{{ __nsd_conf_dir }}"
 nsd_conf: "{{ nsd_conf_dir }}/nsd.conf"
+nsd_config_server: []
+nsd_config_remote_control: []
 nsd_flags: ""
-
-nsd_chroot_enable: false
-nsd_chroot_dir: "{{ nsd_conf_dir }}"
-nsd_statistics_enable: false
-nsd_ip_addresses:
-nsd_listen_on_localhost: true
-
-nsd_conf_do_ip4: "yes"
-nsd_conf_do_ip6: "no"
-nsd_conf_verbosity: 0
-nsd_conf_zonesdir: "{{ nsd_conf_dir }}"
-nsd_conf_statistics: 3600
-nsd_conf_round_robin: False
-nsd_conf_server_count: 1
-
-nsd_remote_enable: false
 nsd_remote_setup: false
-nsd_conf_control_interface: [ 127.0.0.1 ]
-nsd_conf_control_port: 8952
-
-nsd_conf_server_key_file:   "{{ nsd_conf_dir }}/nsd_server.key"
-nsd_conf_server_cert_file:  "{{ nsd_conf_dir }}/nsd_server.pem"
-nsd_conf_control_key_file:  "{{ nsd_conf_dir }}/nsd_control.key"
-nsd_conf_control_cert_file: "{{ nsd_conf_dir }}/nsd_control.pem"
-
-nsd_conf_server_key:   ""
-nsd_conf_server_cert:  ""
-nsd_conf_control_key:  ""
-nsd_conf_control_cert: ""
-
 # master and slave
-nsd_zones:
+nsd_zones: {}

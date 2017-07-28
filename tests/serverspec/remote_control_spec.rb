@@ -30,10 +30,6 @@ describe file(config) do
   its(:content) { should match(/control-enable: yes/) }
   its(:content) { should match(/control-interface: 127\.0\.0\.1/) }
   its(:content) { should match(/control-port: 8952/) }
-  its(:content) { should match Regexp.escape("server-key-file: \"#{config_dir}/nsd_server.key\"") }
-  its(:content) { should match Regexp.escape("server-cert-file: \"#{config_dir}/nsd_server.pem\"") }
-  its(:content) { should match Regexp.escape("control-key-file: \"#{config_dir}/nsd_control.key\"") }
-  its(:content) { should match Regexp.escape("control-cert-file: \"#{config_dir}/nsd_control.pem\"") }
 end
 
 %w(nsd_server.key nsd_control.key).each do |f|

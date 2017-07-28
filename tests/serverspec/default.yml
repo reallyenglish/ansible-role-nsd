@@ -2,8 +2,32 @@
   roles:
     - ansible-role-nsd
   vars:
+    nsd_config_server:
+      - "server-count: 1"
+      - name: ip-address
+        values: "{{ ansible_all_ipv4_addresses }} + {{ ['127.0.0.1'] }}"
+      - name: do-ip4
+        value: "yes"
+      - name: do-ip6
+        value: "no"
+      - name: verbosity
+        value: 0
+      - name: username
+        value: "{{ nsd_user }}"
+      - name: zonesdir
+        value: '"{{ nsd_conf_dir }}"'
+      - name: database
+        value: '"{{ nsd_db_dir }}/nsd.db"'
+      - name: pidfile
+        value: '"{{ nsd_run_dir }}/nsd.pid"'
+      - name: xfrdfile
+        value: '"{{ nsd_state_dir }}/xfrd.state"'
+      - name: hide-version
+        value: "yes"
     nsd_remote_enable: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
     nsd_remote_setup: "{% if ansible_os_family == 'FreeBSD' %}False{% else %}true{% endif %}"
+    nsd_config_remote_control:
+      - "control-enable: {% if ansible_os_family == 'FreeBSD' %}no{% else %}yes{% endif %}"
     nsd_keys:
       my_tsig_key:
         secret: Qes2X7V8Fjg+EMlqng1qlCvErGFxXWa4Gxfy1uDWKvQ=
@@ -18,16 +42,30 @@
           ns1.example.com. 120 IN A 192.168.0.1
           mail.example.com. 120 IN A 192.168.0.1
           example.com. 120 IN MX 25 mail.example.com.
-        provide_xfr:
-          - 192.168.133.101 my_tsig_key
-          - 127.0.0.1 NOKEY
-        allow_notify:
-          - 192.168.0.111 NOKEY
-        request_xfr:
-          - 192.168.0.111 NOKEY
-        outgoing_interface:
-          - 192.168.0.1
-        allow_axfr_fallback: "yes"
+        config:
+          - name: provide-xfr
+            values:
+              - 192.168.133.101 my_tsig_key
+              - 127.0.0.1 NOKEY
+          - name: allow-notify
+            value: 192.168.0.111 NOKEY
+          - name: request-xfr
+            values:
+              - 192.168.0.111 NOKEY
+          - name: outgoing-interface
+            values:
+              - 192.168.0.1
+          - 'allow-axfr-fallback: yes'
+      example.net:
+        zonefile: example.net.zone
+        zone: |
+          example.net. 86400 IN SOA ns1.example.net. hostmaster.example.net. 2013020201 10800 3600 604800 3600
+          example.net. 86400 IN NS ns1.example.net.
+          example.net. 120 IN A 192.168.0.1
+          ns1.example.net. 120 IN A 192.168.0.1
+          mail.example.net. 120 IN A 192.168.0.1
+          example.net. 120 IN MX 25 mail.example.net.
+        config: []
 
     redhat_repo_extra_packages:
       - epel-release

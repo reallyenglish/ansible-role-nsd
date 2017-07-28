@@ -4,3 +4,8 @@
   openbsd_pkg:
     name: drill
     state: present
+
+- name: Enable nsd
+  service:
+    name: "{{ nsd_service }}"
+    enabled: true
