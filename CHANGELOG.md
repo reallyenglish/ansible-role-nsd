@@ -1,3 +1,21 @@
+## Release 2.0.0
+
+* 3b4b5a7 [feature][backward incompatible] support arbitrary config (#32)
+
+This release is backward incompatible. 
+
+Introducing `nsd_config_server` and `nsd_config_remote`, which allow you to
+create flexible `nsd.conf(5)`. The previous releases have had hard-coded
+options in `nsd.conf(5)` template, but the release removed them. 
+
+As a consequence, many variables have been removed.  See `default/main.yml` in
+[3b4b5a71](https://github.com/reallyenglish/ansible-role-nsd/commit/3b4b5a715bdeca2a857f849ebf74b1f902fd003f#diff-7eeda618087b49ae876084ab6c73fdbb).
+You need to stop using them.
+
+Certificate management logic has also been removed. Provide certificates or use
+`reallyenglish.x509-certificate`. An example is provided in
+[`remote_control_with_variables.yml`](https://github.com/reallyenglish/ansible-role-nsd/blob/master/tests/serverspec/remote_control_with_variables.yml).
+
 ## Release 1.2.0
 
 * ec958dd QA; rubocop 0.48 passes but 0.47.1 does not
