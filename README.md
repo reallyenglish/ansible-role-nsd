@@ -234,8 +234,7 @@ None
               - 192.168.133.101 my_tsig_key
               - 127.0.0.1 NOKEY
           - name: allow-notify
-            values:
-              - 192.168.0.111 NOKEY
+            value: 192.168.0.111 NOKEY
           - name: request-xfr
             values:
               - 192.168.0.111 NOKEY
