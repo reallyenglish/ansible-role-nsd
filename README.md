@@ -142,7 +142,7 @@ nsd_zones:
 | `__nsd_db_dir` | `/var/lib/nsd` |
 | `__nsd_conf_dir` | `/etc/nsd` |
 | `__nsd_run_dir` | `/var/run/nsd` |
-| `__nsd_state_dir` | `{{ __nsd_db_dir }}` |
+| `__nsd_state_dir` | `{{ nsd_db_dir }}` |
 
 ## FreeBSD
 
@@ -153,7 +153,7 @@ nsd_zones:
 | `__nsd_db_dir` | `/var/db/nsd` |
 | `__nsd_conf_dir` | `/usr/local/etc/nsd` |
 | `__nsd_run_dir` | `/var/run/nsd` |
-| `__nsd_state_dir` | `{{ __nsd_db_dir }}` |
+| `__nsd_state_dir` | `{{ nsd_db_dir }}` |
 
 ## OpenBSD
 
@@ -164,7 +164,7 @@ nsd_zones:
 | `__nsd_db_dir` | `/var/nsd/db` |
 | `__nsd_conf_dir` | `/var/nsd/etc` |
 | `__nsd_run_dir` | `/var/nsd/run` |
-| `__nsd_state_dir` | `{{ __nsd_run_dir }}` |
+| `__nsd_state_dir` | `{{ nsd_run_dir }}` |
 
 ## RedHat
 
@@ -175,7 +175,7 @@ nsd_zones:
 | `__nsd_db_dir` | `/var/lib/nsd` |
 | `__nsd_conf_dir` | `/etc/nsd` |
 | `__nsd_run_dir` | `/var/run/nsd` |
-| `__nsd_state_dir` | `{{ __nsd_db_dir }}` |
+| `__nsd_state_dir` | `{{ nsd_db_dir }}` |
 
 # Dependencies
 
