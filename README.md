@@ -32,7 +32,7 @@ it, other platforms do not require it.
 | `nsd_flags` | (not implemented) | `""` |
 | `nsd_remote_setup` | run `nsd-control-setup` to create self-signed keys. when false, you need to provide certificates and keys (use `reallyenglish.x509-certificate` and see an example in `tests/serverspec/remote_control_with_variables.yml` | `false` |
 | `nsd_zones` | dict of zones (see below) | `{}` |
-| `nsd_x509_certificate_enable` | include and execute `reallyenglish.x509-certificate` during the play if `yes` (see below) | `no` |
+| `nsd_include_role_x509_certificate` | include and execute `reallyenglish.x509-certificate` during the play if `yes` (see below) | `no` |
 
 ## `nsd_config_server`
 
@@ -134,7 +134,7 @@ nsd_zones:
       - 'allow-axfr-fallback: yes'
 ```
 
-## `nsd_x509_certificate_enable`
+## `nsd_include_role_x509_certificate`
 
 When `yes`, this variable includes and execute
 [`reallyenglish.x509`](https://github.com/reallyenglish/ansible-role-x509-certificate)
@@ -152,7 +152,7 @@ See an example in
 [tests/serverspec/x509.yml](https://github.com/reallyenglish/ansible-role-nsd/tree/master/tests/serverspec/x509.yml).
 
 If `ansible` version requirement cannot be met or your `ansible` version does
-not work with `nsd_x509_certificate_enable`, you need some hacks. See an
+not work with `nsd_include_role_x509_certificate`, you need some hacks. See an
 example in
 [tests/serverspec/remote_control_with_variables.yml](https://github.com/reallyenglish/ansible-role-nsd/tree/master/tests/serverspec/remote_control_with_variables.yml).
 

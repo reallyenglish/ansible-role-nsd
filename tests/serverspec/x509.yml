@@ -3,7 +3,7 @@
     - reallyenglish.redhat-repo
     - ansible-role-nsd
   vars:
-    nsd_x509_certificate_enable: yes
+    nsd_include_role_x509_certificate: yes
 
     # XXX NEVER set this to yes in production
     x509_certificate_debug_log: yes

@@ -5,4 +5,4 @@
 - name: Include x509-certificate
   include_role:
     name: reallyenglish.x509-certificate
-  when: nsd_x509_certificate_enable
+  when: nsd_include_role_x509_certificate
