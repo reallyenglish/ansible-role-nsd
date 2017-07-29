@@ -1,21 +1,19 @@
 - hosts: localhost
   roles:
     - reallyenglish.redhat-repo
-    - reallyenglish.x509-certificate
     - ansible-role-nsd
   vars:
-    x509_certificate_additional_packages: "{% if ansible_os_family == 'OpenBSD' %}[]{% else %}nsd{% endif %}"
-    # XXX nsd_conf_dir_pre == nsd_conf_dir
-    # when x509-certificate is applied to the host, `nsd_conf_dir` is not
-    # included yet.
-    nsd_conf_dir_pre: "{% if ansible_os_family == 'OpenBSD' %}/var/nsd/etc{% elif ansible_os_family == 'FreeBSD' %}/usr/local/etc/nsd{% else %}/etc/nsd{% endif %}"
+    nsd_x509_certificate_enable: yes
+
+    # XXX NEVER set this to yes in production
+    x509_certificate_debug_log: yes
     x509_certificate:
       - name: nsd_control
         state: present
         public:
-          path: "{{ nsd_conf_dir_pre }}/nsd_control.pem"
-          owner: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
-          group: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
+          path: "{{ nsd_conf_dir }}/nsd_control.pem"
+          owner: "{{ nsd_user }}"
+          group: "{{ nsd_group }}"
           mode: "0644"
           key: |
             -----BEGIN CERTIFICATE-----
@@ -41,9 +39,9 @@
             aIV491QzoOfbuVD5/n31wwAX/BU=
             -----END CERTIFICATE-----
         secret:
-          path: "{{ nsd_conf_dir_pre }}/nsd_control.key"
-          owner: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
-          group: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
+          path: "{{ nsd_conf_dir }}/nsd_control.key"
+          owner: "{{ nsd_user }}"
+          group: "{{ nsd_group }}"
           mode: "0600"
           key: |
             -----BEGIN RSA PRIVATE KEY-----
@@ -88,9 +86,9 @@
       - name: nsd_server
         state: present
         public:
-          path: "{{ nsd_conf_dir_pre }}/nsd_server.pem"
-          owner: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
-          group: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
+          path: "{{ nsd_conf_dir }}/nsd_server.pem"
+          owner: "{{ nsd_user }}"
+          group: "{{ nsd_group }}"
           mode: "0644"
           key: |
             -----BEGIN CERTIFICATE-----
@@ -116,9 +114,9 @@
             N49rbR5hkqy9SVm7
             -----END CERTIFICATE-----
         secret:
-          path: "{{ nsd_conf_dir_pre }}/nsd_server.key"
-          owner: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
-          group: "{% if ansible_os_family == 'OpenBSD' %}_nsd{% else %}nsd{% endif %}"
+          path: "{{ nsd_conf_dir }}/nsd_server.key"
+          owner: "{{ nsd_user }}"
+          group: "{{ nsd_group }}"
           mode: "0600"
           key: |
             -----BEGIN RSA PRIVATE KEY-----
