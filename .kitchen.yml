@@ -125,4 +125,3 @@ suites:
       command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_with_variables_spec.rb
     includes:
       - centos-7.3-x86_64
-      - freebsd-10.3-amd64
