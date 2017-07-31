@@ -12,3 +12,4 @@ nsd_flags: ""
 nsd_remote_setup: false
 # master and slave
 nsd_zones: {}
+nsd_include_role_x509_certificate: no

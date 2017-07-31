@@ -97,6 +97,8 @@ suites:
       command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_spec.rb
 
   - name: remote_control_with_variables
+    # XXX this suite is deprecated and if a platform _properly_ supports
+    # `include_role`, the platform should run `x509` test suite instead.
     provisioner:
       name: ansible_playbook
       playbook: tests/serverspec/remote_control_with_variables.yml
@@ -106,6 +108,20 @@ suites:
     verifier:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_with_variables_spec.rb
-    # as this test case is platform-independant, running on a single platform
-    # is enough.
-    includes: centos-7.3-x86_64
+    excludes:
+      - centos-7.3-x86_64
+
+  - name: x509
+    # XXX to run this suite, ansible must be >= 2.2 _and_ bugs in
+    # `include_role` must be fixed.
+    provisioner:
+      name: ansible_playbook
+      playbook: tests/serverspec/x509.yml
+    driver:
+      network:
+      -  ["private_network", {ip: "192.168.133.101/24"}]
+    verifier:
+      name: shell
+      command: rspec -c -f d -I tests/serverspec tests/serverspec/remote_control_with_variables_spec.rb
+    includes:
+      - centos-7.3-x86_64
