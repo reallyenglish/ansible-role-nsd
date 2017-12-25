@@ -32,14 +32,14 @@ describe file(config) do
   its(:content) { should match(/control-port: 8952/) }
 end
 
-%w(nsd_server.key nsd_control.key).each do |f|
+%w[nsd_server.key nsd_control.key].each do |f|
   describe file("#{config_dir}/#{f}") do
     it { should be_file }
     it { should be_mode 640 }
   end
 end
 
-%w(nsd_server.pem nsd_control.pem).each do |f|
+%w[nsd_server.pem nsd_control.pem].each do |f|
   describe file("#{config_dir}/#{f}") do
     it { should be_file }
     it { should be_mode 640 }
